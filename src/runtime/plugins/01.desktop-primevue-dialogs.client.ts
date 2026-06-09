@@ -1,7 +1,7 @@
 import { defineNuxtPlugin } from 'nuxt/app'
 import ConfirmationService from 'primevue/confirmationservice'
 import { useConfirm } from 'primevue/useconfirm'
-import { DESKTOP_DIALOG_PROVIDER_KEY } from '@owdproject/core/runtime/dialogs/desktopDialogProvider'
+import { DESKTOP_DIALOG_PROVIDER_KEY } from '@owdproject/core/runtime/constants/desktopShellKeys'
 import { createDesktopDialogs } from '../dialogs/createDesktopDialogs'
 
 export default defineNuxtPlugin({

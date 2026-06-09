@@ -7,7 +7,7 @@ import {
 } from '@nuxt/kit'
 import { defu } from 'defu'
 import type { Nuxt } from '@nuxt/schema'
-import { registerTailwindPath } from '@owdproject/core/runtime/utils/utilApp'
+import { registerTailwindPath } from '@owdproject/core/kit/registerTailwindPath'
 
 export interface KitPrimevueModuleOptions {
   /**
