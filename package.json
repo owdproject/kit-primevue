@@ -1,0 +1,65 @@
+{
+  "name": "@owdproject/kit-primevue",
+  "version": "0.0.1",
+  "description": "PrimeVue for OWD themes: dialogs (always) and optional DesktopExplorer* UI (requires @owdproject/module-fs; use { explorer: false } for dialogs only).",
+  "license": "MIT",
+  "homepage": "https://github.com/owdproject/client#readme",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "development": "./src/module.ts",
+      "import": "./dist/module.mjs",
+      "default": "./dist/module.mjs"
+    },
+    "./runtime/dialogs/createDesktopDialogs": {
+      "types": "./src/runtime/dialogs/createDesktopDialogs.ts",
+      "import": "./src/runtime/dialogs/createDesktopDialogs.ts"
+    },
+    "./runtime/dialogs/*": {
+      "types": "./src/runtime/dialogs/*",
+      "import": "./src/runtime/dialogs/*"
+    },
+    "./runtime/components/*": {
+      "types": "./src/runtime/components/*",
+      "import": "./src/runtime/components/*"
+    }
+  },
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": ["./dist/types.d.mts"]
+    }
+  },
+  "files": ["dist", "src/runtime"],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "pnpm run dev:prepare",
+    "dev:prepare": "nuxt-module-build build --stub",
+    "build:module": "nuxt-module-build build"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^4.4.4",
+    "@primevue/nuxt-module": "^4.5.5",
+    "defu": "^6.1.4",
+    "primevue": "^4.5.5",
+    "vue3-selecto": "^1.12.3"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.4.4",
+    "@owdproject/core": "workspace:*",
+    "@owdproject/module-fs": "workspace:*",
+    "nuxt": "^4.4.4",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "@owdproject/core": "^3.4.0",
+    "@owdproject/module-fs": "^0.0.6"
+  },
+  "peerDependenciesMeta": {
+    "@owdproject/module-fs": {
+      "optional": true
+    }
+  }
+}
