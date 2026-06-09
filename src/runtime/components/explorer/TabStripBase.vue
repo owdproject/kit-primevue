@@ -5,10 +5,14 @@ withDefaults(defineProps<{
   ariaLabel?: string
   newTabAriaLabel?: string
   closeTabAriaLabel?: string
+  newTabPosition?: 'start' | 'end'
+  showNewTab?: boolean
 }>(), {
   ariaLabel: 'Explorer tabs',
   newTabAriaLabel: 'New tab',
   closeTabAriaLabel: 'Close tab',
+  newTabPosition: 'end',
+  showNewTab: true,
 })
 
 const emit = defineEmits<{
@@ -32,6 +36,17 @@ function onTabMouseUp(id: string, e: MouseEvent) {
     role="tablist"
     :aria-label="ariaLabel"
   >
+    <button
+      v-if="showNewTab && newTabPosition === 'start'"
+      type="button"
+      class="explorer-tab-strip-base__new"
+      data-part="tab-new"
+      :aria-label="newTabAriaLabel"
+      @click="emit('add')"
+    >
+      +
+    </button>
+
     <button
       v-for="tab in tabs"
       :key="tab.id"
@@ -61,6 +76,7 @@ function onTabMouseUp(id: string, e: MouseEvent) {
     </button>
 
     <button
+      v-if="showNewTab && newTabPosition === 'end'"
       type="button"
       class="explorer-tab-strip-base__new"
       data-part="tab-new"
@@ -82,8 +98,9 @@ function onTabMouseUp(id: string, e: MouseEvent) {
 .explorer-tab-strip-base__tab {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
   min-width: 0;
-} 
+}
 
 .explorer-tab-strip-base__tab-label {
   min-width: 0;

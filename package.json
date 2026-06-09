@@ -23,6 +23,10 @@
     "./runtime/components/*": {
       "types": "./src/runtime/components/*",
       "import": "./src/runtime/components/*"
+    },
+    "./kit/registerTailwindPath": {
+      "types": "./src/kit/registerTailwindPath.ts",
+      "import": "./src/kit/registerTailwindPath.ts"
     }
   },
   "main": "./dist/module.mjs",
@@ -31,7 +35,7 @@
       ".": ["./dist/types.d.mts"]
     }
   },
-  "files": ["dist", "src/runtime"],
+  "files": ["dist", "src/runtime", "src/kit"],
   "scripts": {
     "prepack": "nuxt-module-build build",
     "dev": "pnpm run dev:prepare",
@@ -40,9 +44,11 @@
   },
   "dependencies": {
     "@nuxt/kit": "^4.4.4",
+    "@nuxtjs/tailwindcss": "^6.14.0",
     "@primevue/nuxt-module": "^4.5.5",
     "defu": "^6.1.4",
     "primevue": "^4.5.5",
+    "tailwindcss-primeui": "^0.6.1",
     "vue3-selecto": "^1.12.3"
   },
   "devDependencies": {

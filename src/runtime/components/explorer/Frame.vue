@@ -132,6 +132,10 @@ const cardRootClass = computed(
   height: auto;
 }
 .owd-window.resizable-component :deep(> .p-card) > .p-card-body > .p-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
   height: 100%;
 }
 </style>
