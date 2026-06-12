@@ -1,36 +1,41 @@
 <script setup>
-import { useSlots, computed, useAttrs } from "vue";
-import Nav from "./Nav.vue";
-import Body from "./Body.vue";
+import { useSlots, computed, useAttrs } from 'vue'
+import Nav from './Nav.vue'
+import Body from './Body.vue'
+
 const props = defineProps({
   window: { type: Object, required: false },
   content: { type: null, required: false },
   chromePadding: { type: Boolean, required: false, default: true },
-  frameClass: { type: String, required: false }
-});
+  frameClass: { type: String, required: false },
+})
+
 defineEmits([
-  "drag:start",
-  "drag:move",
-  "drag:end",
-  "resize:start",
-  "resize:move",
-  "resize:end"
-]);
-defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
+  'drag:start',
+  'drag:move',
+  'drag:end',
+  'resize:start',
+  'resize:move',
+  'resize:end',
+])
+
+defineOptions({ inheritAttrs: false })
+
+const attrs = useAttrs()
 const windowRootClass = computed(
-  () => [attrs.class, props.frameClass].filter(Boolean)
-);
-const slots = useSlots();
+  () => [attrs.class, props.frameClass].filter(Boolean),
+)
+const slots = useSlots()
 const hasHeaderBelowNavSlot = computed(
-  () => typeof slots["header-below-nav"] === "function"
-);
+  () => typeof slots['header-below-nav'] === 'function',
+)
+const hasNavSlot = computed(() => typeof slots.nav === 'function')
 const cardRootClass = computed(
   () => [
-    "p-card--border",
-    props.chromePadding === false ? "kit-fs-frame-card--tight" : ""
-  ].filter(Boolean).join(" ")
-);
+    'p-card--border',
+    props.chromePadding === false ? 'desktop-explorer-frame-card--tight' : '',
+  ].filter(Boolean).join(' '),
+)
 </script>
 
 <template>
@@ -48,12 +53,12 @@ const cardRootClass = computed(
   >
     <Card :pt:root="cardRootClass">
       <template #header>
-        <div class="kit-fs-frame__header-stack">
-          <Nav>
+        <div class="desktop-explorer-frame__header-stack">
+          <slot v-if="hasNavSlot" name="nav" />
+          <Nav v-else>
             <template #prepend>
               <slot name="nav-prepend" />
             </template>
-            <!-- Only forward nav-title when set; otherwise Nav keeps icon + window title (About, Todo, …). -->
             <template v-if="$slots['nav-title']" #title>
               <slot name="nav-title" />
             </template>
@@ -63,7 +68,7 @@ const cardRootClass = computed(
           </Nav>
           <div
             v-if="hasHeaderBelowNavSlot"
-            class="kit-fs-frame__header-below-nav"
+            class="desktop-explorer-frame__header-below-nav"
           >
             <slot name="header-below-nav" />
           </div>
@@ -79,13 +84,13 @@ const cardRootClass = computed(
 </template>
 
 <style scoped>
-.kit-fs-frame__header-stack {
+.desktop-explorer-frame__header-stack {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-.kit-fs-frame__header-below-nav {
+.desktop-explorer-frame__header-below-nav {
   min-width: 0;
 }
 
@@ -116,10 +121,10 @@ const cardRootClass = computed(
   height: 100%;
   padding: var(--owd-gap);
 }
-.owd-window.resizable-component :deep(> .p-card).kit-fs-frame-card--tight {
+.owd-window.resizable-component :deep(> .p-card).desktop-explorer-frame-card--tight {
   padding: 0;
 }
-.owd-window.resizable-component :deep(> .p-card).kit-fs-frame-card--tight > .p-card-header {
+.owd-window.resizable-component :deep(> .p-card).desktop-explorer-frame-card--tight > .p-card-header {
   margin-bottom: 0;
 }
 .owd-window.resizable-component :deep(> .p-card) > .p-card-header {

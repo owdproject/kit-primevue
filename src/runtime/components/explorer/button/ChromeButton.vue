@@ -1,25 +1,33 @@
 <script setup>
 defineProps({
-  size: { type: String, required: false },
-  variant: { type: String, required: false }
-});
+  variant: { type: String, required: false },
+})
 </script>
 
 <template>
   <Button
-    :size="size ?? 'small'"
     :class="[
-  'p-button--window-nav',
-  'p-button--icon',
-  variant ? `p-button--window-nav-${variant}` : ''
-]"
+      'p-button--window-nav',
+      variant ? `p-button--window-nav-${variant}` : '',
+    ]"
   >
-    <slot />
+    <span class="owd-button__window-nav-content">
+      <slot />
+    </span>
   </Button>
 </template>
 
 <style scoped>
-.p-button > :deep(.iconify) {
-  margin-left: -1px;
+:deep(.p-button.p-button--window-nav) {
+  overflow: visible;
+}
+
+.owd-button__window-nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
 }
 </style>

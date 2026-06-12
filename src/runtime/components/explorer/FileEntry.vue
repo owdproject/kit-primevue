@@ -145,7 +145,7 @@ const classes = computed(() => {
   }
   list.push({ "owd-file--selected": props.selected });
   list.push({ "owd-file--cutted": props.cutted });
-  list.push({ "kit-fs-explorer-folder-drop-target--active": folderDrop.isDragOver.value });
+  list.push({ "desktop-explorer-folder-drop-target--active": folderDrop.isDragOver.value });
   return list;
 });
 </script>
@@ -412,10 +412,10 @@ const classes = computed(() => {
 .owd-file--cutted {
   opacity: 0.6;
 }
-.owd-file.kit-fs-explorer-folder-drop-target--active {
-  outline: 2px dashed var(--owd-explorer-drop-outline, var(--p-primary-color, #3b82f6));
+.owd-file.desktop-explorer-folder-drop-target--active {
+  outline: 2px dashed var(--desktop-explorer-drop-outline, var(--p-primary-color, #3b82f6));
   outline-offset: -2px;
-  background: var(--owd-explorer-drop-surface, color-mix(in srgb, var(--owd-explorer-drop-outline, var(--p-primary-color, #3b82f6)) 8%, transparent));
+  background: var(--desktop-explorer-drop-surface, color-mix(in srgb, var(--desktop-explorer-drop-outline, var(--p-primary-color, #3b82f6)) 8%, transparent));
 }
 
 .truncate {

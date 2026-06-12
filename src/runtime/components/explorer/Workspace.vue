@@ -1,71 +1,81 @@
 <script setup>
-import { useExplorerWindow } from "@owdproject/module-fs/runtime/composables/useExplorerWindow";
-import Frame from "./Frame.vue";
-import Toolbar from "./Toolbar.vue";
-import AddressBar from "./AddressBar.vue";
-import { useI18n } from "vue-i18n";
-import { explorerEntryAbsolutePath } from "@owdproject/module-fs/runtime/utils/utilExplorerEntryPath";
+import { useExplorerWindow } from '@owdproject/module-fs/runtime/composables/useExplorerWindow'
+import { useI18n } from 'vue-i18n'
+import { explorerEntryAbsolutePath } from '@owdproject/module-fs/runtime/utils/utilExplorerEntryPath'
+import Frame from './Frame.vue'
+import Chrome from './Chrome.vue'
+import FilePane from './FilePane.vue'
+import AddressBar from './AddressBar.vue'
+import DefaultToolbar from './presets/DefaultToolbar.vue'
+
 const props = defineProps({
   config: { type: Object, required: false },
   window: { type: Object, required: true },
-  frameClass: { type: String, required: false }
-});
-const { t } = useI18n();
-const fsExplorer = useExplorerWindow(
-  props.window,
-  t,
-);
-props.window.fsExplorer = fsExplorer;
-void fsExplorer.initialize();
+  frameClass: { type: String, required: false },
+})
+
+const { t } = useI18n()
+const fsExplorer = useExplorerWindow(props.window, t)
+props.window.fsExplorer = fsExplorer
+void fsExplorer.initialize()
 </script>
 
 <template>
   <Frame
     :window="window"
-    :config="config"
     :frame-class="frameClass"
   >
-    <div class="flex flex-col h-full">
-      <div class="flex flex-row items-center">
-        <div class="flex-1 overflow-hidden">
-          <Menubar breakpoint="false" :model="window.menu" />
+    <template v-if="$slots.nav" #nav>
+      <slot name="nav" />
+    </template>
+
+    <Chrome>
+      <div class="desktop-explorer-menubar-row">
+        <div class="desktop-explorer-menubar-row__menu">
+          <Menubar :breakpoint="'0px'" :model="window.menu" />
         </div>
         <Divider layout="vertical" />
 
-        <div class="bg-black flex items-center text-center" style="height: 26px;">
-          <img class="mx-1" style="height: 22px;" src="data:image/gif;base64,R0lGODlhTAAsAIQQAAAAAAAAMAgICBAQEB8fHyAgIAAwMCgoKAAwZwAwmABnmDBnZzBnmDBnzzCYzzCY/7KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysiH5BAEKABAALAAAAABMACwAAAX+ICCOZGmeaKqubOu+cCzPqCAEQVHQfH/aOJ1vOCMQFIpGg8FAOBE2onRlRCqZT6hgSjQ6F4tEgvl4IKMAmxfBHa7BYrJZgVYTnO2ZwaAs+/9+Snglg3kwe32AioJshI2GLUh/TJKKgExohZArlWWUCpaXDJmPmyhyDg5ZqaGKSDqapiaoqk+srX+vBbGyIntlSjYHB5NNCHKhSAMDvSa/D8ECw8VOyJbKzM0kVwy+Bn9CJdZ/Stom3N7gO+IMoeXmIstIIjh/qTh7ezidlkbw8groBbDnAF++faBa+YM3wsYtXBD98NLm0EHEiw8mNuOHEZfGXhw7hvq4qZ6lVHu3nAxzkq9lvmEL4ZlUhNKAygMsXbaESYAhgHGA0JAYxo2JEmw+gf4ROoLoEiYMjipYBu8ZLiVUAVg96cDnVncNsn4FlCppuwcPW6UNhcNsmbVcI7ZlqORegEQi/+xhqq1uwbsN8gLau4Vhqnc2kMANZZevucMNRCRWsJgrDsfaKu2RLMAJN7/cNvs8odkAZ89PQT8VPbqEjkRQjWXF3PrE68APYjuZXbj2CyNZfbshEFy48ePIR4QAADs=" />
+        <div class="desktop-explorer-brand">
+          <img
+            class="desktop-explorer-brand__logo"
+            alt=""
+            src="data:image/gif;base64,R0lGODlhTAAsAIQQAAAAAAAAMAgICBAQEB8fHyAgIAAwMCgoKAAwZwAwmABnmDBnZzBnmDBnzzCYzzCY/7KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysiH5BAEKABAALAAAAABMACwAAAX+ICCOZGmeaKqubOu+cCzPqCAEQVHQfH/aOJ1vOCMQFIpGg8FAOBE2onRlRCqZT6hgSjQ6F4tEgvl4IKMAmxfBHa7BYrJZgVYTnO2ZwaAs+/9+Snglg3kwe32AioJshI2GLUh/TJKKgExohZArlWWUCpaXDJmPmyhyDg5ZqaGKSDqapiaoqk+srX+vBbGyIntlSjYHB5NNCHKhSAMDvSa/D8ECw8VOyJbKzM0kVwy+Bn9CJdZ/Stom3N7gO+IMoeXmIstIIjh/qTh7ezidlkbw8groBbDnAF++faBa+YM3wsYtXBD98NLm0EHEiw8mNuOHEZfGXhw7hvq4qZ6lVHu3nAxzkq9lvmEL4ZlUhNKAygMsXbaESYAhgHGA0JAYxo2JEmw+gf4ROoLoEiYMjipYBu8ZLiVUAVg96cDnVncNsn4FlCppuwcPW6UNhcNsmbVcI7ZlqORegEQi/+xhqq1uwbsN8gLau4Vhqnc2kMANZZevucMNRCRWsJgrDsfaKu2RLMAJN7/cNvs8odkAZ89PQT8VPbqEjkRQjWXF3PrE68APYjuZXbj2CyNZfbshEFy48ePIR4QAADs="
+          />
         </div>
       </div>
 
       <Divider />
 
-      <Toolbar
-        :arrows-disabled="fsExplorer.fsDirectoryNavigation.history.value.length <= 1"
-        @back="fsExplorer.directoryBack"
-        @forward="fsExplorer.directoryForward"
-        @up="fsExplorer.directoryUp"
-        @cut="fsExplorer.cutSelectedFiles"
-        @copy="fsExplorer.copySelectedFiles"
-        @paste="() => fsExplorer.fsController?.pasteClipboardFiles()"
-        @delete="() => fsExplorer.fsController?.deleteSelectedFiles()"
-        @undo="fsExplorer.operationUndo"
-        @properties="fsExplorer.fileProperties"
-      />
+      <slot name="toolbar">
+        <DefaultToolbar
+          :arrows-disabled="fsExplorer.fsDirectoryNavigation.history.value.length <= 1"
+          @back="fsExplorer.directoryBack"
+          @forward="fsExplorer.directoryForward"
+          @up="fsExplorer.directoryUp"
+          @cut="fsExplorer.cutSelectedFiles"
+          @copy="fsExplorer.copySelectedFiles"
+          @paste="() => fsExplorer.fsController?.pasteClipboardFiles()"
+          @delete="() => fsExplorer.fsController?.deleteSelectedFiles()"
+          @properties="fsExplorer.fileProperties"
+        />
+      </slot>
 
       <Divider />
 
-      <AddressBar
-        :address="fsExplorer.basePath.value ?? ''"
-        @update:modelValue="(value) => {
-  fsExplorer.basePath.value = value;
-}"
-      />
+      <slot name="address">
+        <AddressBar
+          :address="fsExplorer.basePath.value ?? ''"
+          @update:model-value="(value) => {
+            fsExplorer.basePath.value = value
+          }"
+        />
+      </slot>
 
       <Divider />
 
-      <div class="flex-1 overflow-auto">
-        <DataTable class="h-full">
-
+      <slot name="file-pane">
+        <FilePane>
           <DesktopExplorerSelectableArea
             v-if="!String(window.meta.path ?? '').startsWith('http')"
             :fs-explorer="fsExplorer"
@@ -84,26 +94,23 @@ void fsExplorer.initialize();
           </DesktopExplorerSelectableArea>
           <iframe
             v-else
+            class="desktop-explorer-file-pane__iframe"
             :src="window.meta.path ?? ''"
           />
-
-        </DataTable>
-      </div>
-    </div>
+        </FilePane>
+      </slot>
+    </Chrome>
   </Frame>
 </template>
 
 <style scoped>
-.h-full {
-  overflow-x: hidden;
-}
-
-iframe {
+iframe.desktop-explorer-file-pane__iframe {
   width: 100%;
   height: 100%;
+  border: 0;
 }
 
-:deep(.owd-window:not(.owd-window--focused)) iframe {
+:deep(.owd-window:not(.owd-window--focused)) iframe.desktop-explorer-file-pane__iframe {
   pointer-events: none;
 }
 </style>

@@ -1,30 +1,40 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch } from 'vue'
+import {
+  formatExplorerDisplayPath,
+  parseExplorerVfsPath,
+} from '@owdproject/module-fs/runtime/utils/utilExplorerDisplayPath'
+
 const props = defineProps({
-  address: { type: String, required: true }
-});
-const addressInput = ref(props.address);
+  address: { type: String, required: true },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const addressInput = ref(formatExplorerDisplayPath(props.address))
+
 watch(
   () => props.address,
   (address) => {
-    addressInput.value = address;
-  }
-);
+    addressInput.value = formatExplorerDisplayPath(address)
+  },
+)
+
+function onEnter() {
+  emit('update:modelValue', parseExplorerVfsPath(addressInput.value))
+}
 </script>
 
 <template>
-  <div>
-    <div class="flex">
-      <div class="flex-col px-1" style="align-items: center; display: grid">
-        {{$t("apps.explorer.address")}}
-      </div>
-      <div class="flex-col w-full">
-        <InputText
-          v-model="addressInput" style="width: inherit"
-          spellcheck="false"
-          @keydown.enter="$emit('update:modelValue', addressInput)"
-        />
-      </div>
-    </div>
+  <div class="desktop-explorer-address-bar">
+    <span class="desktop-explorer-address-bar__label">
+      {{ $t('apps.explorer.address') }}
+    </span>
+    <InputText
+      v-model="addressInput"
+      class="desktop-explorer-address-bar__input"
+      spellcheck="false"
+      @keydown.enter="onEnter"
+    />
   </div>
 </template>
