@@ -23,17 +23,17 @@ function onWindowNavDestroy() {
 </script>
 
 <template>
-  <DesktopWindowNav @dblclick="onWindowMaximize">
+  <DesktopCoreWindowNav @dblclick="onWindowMaximize">
     <slot name="prepend" />
-
+ 
     <slot v-if="hasCustomTitle" name="title" />
-
+ 
     <template v-else>
       <NavIcon
         v-if="windowController?.icon"
         :icon="windowController.icon"
       />
-
+ 
       <div v-if="windowController?.title" class="owd-window-nav__title">
         <div
           class="owd-window-nav__title-inner truncate"
@@ -41,10 +41,10 @@ function onWindowNavDestroy() {
         />
       </div>
     </template>
-
+ 
     <div class="owd-window-nav__btn-group owd-window-nav__btn-group--append">
       <slot name="append" />
-
+ 
       <Minimize
         v-if="!windowController?.instanced || windowController?.isMinimizable"
         @mousedown.stop
@@ -61,7 +61,7 @@ function onWindowNavDestroy() {
         @click.stop="onWindowNavDestroy"
       />
     </div>
-  </DesktopWindowNav>
+  </DesktopCoreWindowNav>
 </template>
 
 <style scoped>

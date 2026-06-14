@@ -4,11 +4,11 @@ const windowContent = inject<any>('windowContent', {})
 </script>
 
 <template>
-  <WindowContent>
+  <DesktopWindowContent>
     <div :class="['desktop-explorer-body', { 'desktop-explorer-body--centered': windowContent?.centered }]">
       <slot />
     </div>
-  </WindowContent>
+  </DesktopWindowContent>
 </template>
 
 <style scoped>
