@@ -1,6 +1,6 @@
 {
   "name": "@owdproject/kit-primevue",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "PrimeVue for OWD themes: dialogs (always) and optional DesktopExplorer* UI (requires @owdproject/module-fs; use { explorer: false } for dialogs only).",
   "license": "MIT",
   "homepage": "https://github.com/owdproject/client#readme",

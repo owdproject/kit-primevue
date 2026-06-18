@@ -95,7 +95,8 @@ function mergeDesktopTailwindContent(
     console.info(
       '[desktop-kit-primevue] Tailwind content:',
       merged.length,
-      'paths',
+      'paths:',
+      merged,
     )
   }
 }
