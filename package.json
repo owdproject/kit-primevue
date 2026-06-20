@@ -57,7 +57,7 @@
     "@owdproject/core": "workspace:*",
     "@owdproject/module-fs": "workspace:*",
     "nuxt": "^4.4.4",
-    "typescript": "catalog:"
+    "typescript": "~6.0.3"
   },
   "peerDependencies": {
     "@owdproject/core": "^3.4.0",
