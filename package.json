@@ -16,6 +16,10 @@
       "types": "./src/runtime/dialogs/createDesktopDialogs.ts",
       "import": "./src/runtime/dialogs/createDesktopDialogs.ts"
     },
+    "./runtime/dialogs/setupDesktopDialogProvider": {
+      "types": "./src/runtime/dialogs/setupDesktopDialogProvider.ts",
+      "import": "./src/runtime/dialogs/setupDesktopDialogProvider.ts"
+    },
     "./runtime/dialogs/*": {
       "types": "./src/runtime/dialogs/*",
       "import": "./src/runtime/dialogs/*"
